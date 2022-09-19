@@ -13,15 +13,16 @@ from utils import *
 
 if __name__ == '__main__':
     # Grab data
-    ncaabb_pinnacle_dict, ncaabb_american_dict = ncaa_bb()
+    nfl_pinnacle_dict, nfl_american_dict = nfl()
 
     # Sift thru non-positive EV games
-    for game in ncaabb_american_dict:
-        print(ncaabb_pinnacle_dict[game].underdog)
-        print(f'{int(ncaabb_pinnacle_dict[game].underdog_odds)} & {int(ncaabb_pinnacle_dict[game].favorite_odds)}')
+    for game in nfl_american_dict:
+        print(nfl_pinnacle_dict[game].favorite)
+        print(f'{int(nfl_pinnacle_dict[game].underdog_odds)} & {int(nfl_pinnacle_dict[game].favorite_odds)}')
         '''instead of printing this stuf here^^, insert it into amercian dataframe(s)'''
-        current = ncaabb_american_dict[game]
-        positive = current.loc[current['dog_EV'] > 0]
-        print(positive[['book','favorite_odds','dog_odds','dog_EV','fav_EV','dog_kelly']],'\n')
+        current = nfl_american_dict[game]
+        positive = current.loc[current['fav_EV'] > 0]
+        print(positive[['book','favorite_odds','dog_odds','fav_EV','dog_EV']],'\n')
 
-    ncaa_dog_data, ncaa_fav_data = mine_data(ncaabb_american_dict, ncaabb_pinnacle_dict)
+    nfl_dog_data, nfl_fav_data = mine_data(nfl_american_dict, nfl_pinnacle_dict)
+    
